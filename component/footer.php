@@ -1,7 +1,7 @@
 <footer class="page-footer light-blue lighten-2">
     <div class="footer-copyright">
         <div class="container center">
-            <span class="black-text">Copyrights Reserved - Made by Fearless Team </span>
+            <span class="black-text">Copyrights Reserved - Made by Team Fearless </span>
         </div>
     </div>
 </footer>

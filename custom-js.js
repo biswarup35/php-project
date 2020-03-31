@@ -16,7 +16,4 @@ $(document).ready(function(){
     $('.subject').formSelect();
   });
 
-  $(document).ready(function(){
-    $('#test').modal();
-  });
 
