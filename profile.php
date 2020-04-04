@@ -5,6 +5,7 @@ include('config.php');
 $userName = $_SESSION['userName'];
 
 if (isset($_SESSION['userName'])) {
+    // future update - join two table (teacherdetails, teacherimage) for display images
     $sql = "SELECT * FROM teacherdetails WHERE userTeachers = '$userName'";
     $result = mysqli_query($conn, $sql);
     if ($result == true) {
@@ -23,7 +24,7 @@ if (isset($_SESSION['userName'])) {
         $location = $_POST['location'];
         $stream = $_POST['subject-stream'];
 
-        $sql1 = "UPDATE teacherdetails SET 
+        $sql = "UPDATE teacherdetails SET 
         name = '$name',
         location = '$location',
         address = '$address',
@@ -33,10 +34,32 @@ if (isset($_SESSION['userName'])) {
         fees = '$fees'
         WHERE userTeachers = '$userName'
         ";
-        header("Refresh: 0.1");
-      if (!mysqli_query($conn,$sql1)) {
-      header("Location: profile.php?error=sqlerror");
-      exit();
+        $update = mysqli_query($conn,$sql);
+        // header("Refresh: 0.1");
+      if ($update) {
+          $fileName = basename($_FILES['img']['name']);
+          $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+        //   file type allowed
+        $type = array('jpg','png','jpeg','gif');
+        if (in_array($fileType,$type)) {
+            $image = $_FILES['img']['tmp_name'];
+            $imgContenet = addslashes(file_get_contents($image));
+
+            $sql = "UPDATE teacherimage SET img = '$imgContenet' WHERE userTeachers = '$userName'";
+            
+            if (!mysqli_query($conn,$sql)) {
+                header("Location: profile.php?errorimg=failedupload");
+                exit();               
+            }
+            
+        } else {
+            header("Location: profile.php?img=wrongformat");
+            exit();  
+        }
+          
+      } elseif (!$update) {
+        header("Location: profile.php?error=sqlerror");
+        exit();
       }
     }
 
@@ -50,19 +73,19 @@ if (isset($_SESSION['userName'])) {
         <div class="col s12" id="form-container">
             <div class="card z-depth-0 grey lighten-3">
                 <div class="card-content">
-                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col s3">
                      <p>Profile Picture</p>
                 </div>
-                <div class="col s7">
+                <div class="col s9">
                 <div class="file-field input-field">
                      <div class="btn">
                            <span>File</span>
-                           <input type="file" accept="image/*">
+                           <input type="file" name="img" accept="image/*">
                      </div>
                      <div class="file-path-wrapper">
-                       <input class="file-path validate" value="image.jpeg" type="text">
+                       <input class="file-path validate"  type="text">
                      </div>
                  </div>
                 </div>
