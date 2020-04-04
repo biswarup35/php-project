@@ -33,7 +33,7 @@ if (isset($_SESSION['userName'])) {
         fees = '$fees'
         WHERE userTeachers = '$userName'
         ";
-        header("Refresh: 0");
+        header("Refresh: 0.1");
       if (!mysqli_query($conn,$sql1)) {
       header("Location: profile.php?error=sqlerror");
       exit();
