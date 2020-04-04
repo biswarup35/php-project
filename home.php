@@ -1,7 +1,7 @@
 <?php include('component/header.php') ?>
 
 <?php 
-if (isset($_SESSION['userTeachers'])) {
+if (isset($_SESSION['userName'])) {
   echo "ok";
 }
 ?>
