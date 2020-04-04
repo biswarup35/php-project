@@ -1,11 +1,5 @@
 <?php include('component/header.php') ?>
 
-<?php 
-if (isset($_SESSION['userName'])) {
-  echo "ok";
-}
-?>
-
 <div class="container center">
     <div class="hero">
     <img class="responsive-img" src="background.png">
