@@ -1,12 +1,35 @@
-<?php include('component/header.php') ?>
+<?php include('component/header.php');
+require('config.php');
+?>
+<?php
+if (isset($_SESSION['userName'])) {
+  $style = "style='display:none;'";
+  $style2 = "style='display:block;'";
+  $userName = $_SESSION['userName'];
 
-<div class="container center">
+  $sql = "SELECT teacherdetails.id,teacherdetails.name,teacherdetails.userTeachers,teacherdetails.location,
+  teacherdetails.address,teacherdetails.contact,teacherdetails.stream,
+  teacherdetails.subjects,teacherdetails.fees,teacherimage.img FROM teacherdetails
+   INNER JOIN teacherimage on teacherdetails.userTeachers = teacherimage.userTeachers
+    WHERE teacherdetails.userTeachers = '$userName'";
+  
+  $result = mysqli_query($conn, $sql);
+  $details = mysqli_fetch_assoc($result);
+} else {
+  $style = "style='display:block;'";
+  $style2 = "style='display:none;'"; 
+}
+
+
+?>
+
+<div <?php echo $style?> class="container center">
     <div class="hero">
     <img class="responsive-img" src="background.png">
     <a class="test btn-floating btn-large pulse blue darken-4" href="index.php"><i class="material-icons" >search</i></a>
     </div>
 </div>
-<div class="center">
+<div <?php echo $style?> class="center">
 <div class="row">
 <div class="col s12 m6 l4">
      <div class="card light-blue lighten-2">
@@ -44,6 +67,57 @@
         </div>
       </div>
 </div>
+</div>
+</div>
+<div <?php echo $style2;?> class="container">
+<div class="col s12">
+  <div class="row">
+    <div class="col s12">
+      <div class="row center">
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($details['img']); ?>" alt="" height="100" width="100" class="circle responsive-img">
+      </div>
+      <div class="row center">
+        <h6>Welcome : <?php echo $details['userTeachers'];?></h6>
+      </div>
+    </div>
+
+  </div>
+  <div class="row">
+    <a class="btn blue darken-4 right" href="profile-edit.php">Edit Details</a>
+ <button class="btn blue darken-4 left">views as public</button>
+  </div>
+  <div class="row center">
+    <div class="col s12 m3">
+     <i class="small  material-icons">perm_identity</i>
+      <p> <strong>Name :</strong> <?php echo $details['name'];?></p>
+    </div>
+    <div class="col s12 m3">
+    <i class="small material-icons">location_on</i>
+    <p> <strong>Location :</strong> <?php echo $details['location'];?> </p>
+    </div>
+     <div class="col s12 m3">
+     <i class="small material-icons">euro</i>
+    <p><strong>Fess :</strong> <?php echo $details['fees'];?></p>
+    </div>
+     <div class="col s12 m3">
+     <i class="small material-icons">phone_iphone</i>
+     <p><strong>Phone :</strong><a href="tel:<?php echo $details['contact'];?>"> <?php echo $details['contact'];?></a></p>
+    </div>
+  </div>
+  <div class="row center">
+    <div class="col s12 m4">
+    <i class="small material-icons">map</i>
+     <p><strong>Address :</strong> <?php echo $details['address'];?></p>
+    </div>
+     <div class="col s12 m4">
+       <i class="small material-icons">menu_book</i>
+      <p> <strong>subjects :</strong> <?php echo $details['subjects'];?></p>
+    </div>
+      <div class="col s12 m4">
+      <i class="small material-icons">settings</i>
+      <p><strong>stream :</strong> <?php echo $details['stream'];?></p>
+    </div>
+  </div>
 </div>
 </div>
 <?php include('component/footer.php') ?>

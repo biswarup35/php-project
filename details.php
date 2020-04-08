@@ -23,19 +23,18 @@ if(!empty($setId)) {
 ?>
 <div class="container">
 <div class="row">
-<div class="col s12 m12 l12 xl12">
+<div class="col s12">
 <div class="card center z-depth-0 grey lighten-3">
 
 <section id="1">
     <div class="row">
         <div class="col s12">
         <i class="medium  material-icons">perm_identity</i>
-
              <p> Name : <?php echo htmlspecialchars($teacher['name']); ?>  </p>
         </div>
     </div>
     <div class="row">
-        <div class="col s12 m12 l12 xl12">
+        <div class="col s12">
         <i class="medium material-icons">map</i>
              <p> Address : <?php echo htmlspecialchars($teacher['location']); ?>
              <br/>

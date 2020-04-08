@@ -1,17 +1,12 @@
-<?php include('component/header.php');?>
+<?php require('../component/header.php');?>
+<?php
+if (isset($_POST['submit'])) {
+  include('../config.php');
+  $userName = $_SESSION['userName'];
 
-
-
-
-<div class="container">
-
-<i class="material-icons">add</i>
-
-</div>
-
-
-
-
+  $sql = "SELECT teacherdetails.userTeachers,teacherdetails.name,teacherdetails.location,teacherdetails.address,teacherdetails.contact,teacherdetails.stream,teacherdetails.subjects,teacherdetails.fees,teacherimage.img FROM teacherdetails INNER JOIN teacherimage ON teacherdetails.userTeachers = teacherimage.userTeachers WHERE teacherdetails.userTeachers = '$userName'";
+  $result = mysqli_query($conn, $sql);
+  $details = mysqli_fetch_assoc($result);
 
 
 
@@ -19,9 +14,9 @@
 
 
 
-
-
-
+} else {
+  echo "not clicked";
+}
 
 
 
@@ -33,27 +28,16 @@
 
 
 
-<!-- <div class="container">
-<form action="handler.php" method="post">
-<div class="input-field col s12">
-    <select name="option" class="test">
-      <option value="Asansol">Asansol</option>
-      <option value="Raghunathpur">Raghunathpur</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Select Location</label>
-  </div>
-  <div class="input-field col s12">
-    <select name="option1" class="test1">
-      <option value="Science">Science</option>
-      <option value="Arts">Arts</option>
-      <option value="3">Option 3</option>
-    </select>
-    <label>Select Subject</label>
-  </div>
-  <input type="submit" value="submit">
+
+
+
+
+
+
+?>
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+<button class="btn" name="submit" type="submit">Click Me</button>
 </form>
-</div> -->
+<img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($details['img']); ?>" /> 
 
-
-<?php include('component/footer.php');?>
+<?php require('../component/footer.php');?>

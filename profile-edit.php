@@ -5,14 +5,23 @@ include('config.php');
 $userName = $_SESSION['userName'];
 
 if (isset($_SESSION['userName'])) {
-    // future update - join two table (teacherdetails, teacherimage) for display images
-    $sql = "SELECT * FROM teacherdetails WHERE userTeachers = '$userName'";
+    // updated - joined two table (teacherdetails, teacherimage) for display images
+    // $sql = "SELECT * FROM teacherdetails WHERE userTeachers = '$userName'";
+    $sql = "SELECT teacherdetails.userTeachers,
+    teacherdetails.name,teacherdetails.location,
+    teacherdetails.address,teacherdetails.contact,
+    teacherdetails.stream,teacherdetails.subjects,
+    teacherdetails.fees,teacherimage.img FROM teacherdetails 
+    INNER JOIN teacherimage 
+    ON teacherdetails.userTeachers = teacherimage.userTeachers 
+    WHERE teacherdetails.userTeachers = '$userName'";
+
     $result = mysqli_query($conn, $sql);
     if ($result == true) {
         $details = mysqli_fetch_assoc($result);
 
     } else {
-        header("Location: profile.php?error=norecordsfound");
+        header("Location: profile-edit.php?error=norecordsfound");
         exit();        
     }
     if (isset($_POST['submit'])) {
@@ -35,11 +44,12 @@ if (isset($_SESSION['userName'])) {
         WHERE userTeachers = '$userName'
         ";
         $update = mysqli_query($conn,$sql);
-        // header("Refresh: 0.1");
+        header("Refresh: 0.1");
       if ($update) {
+        //   if image field left empty then skip update statement.
           $fileName = basename($_FILES['img']['name']);
           $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        //   file type allowed
+        //   file type allowed - in_array block needs to be removed
         $type = array('jpg','png','jpeg','gif');
         if (in_array($fileType,$type)) {
             $image = $_FILES['img']['tmp_name'];
@@ -48,17 +58,17 @@ if (isset($_SESSION['userName'])) {
             $sql = "UPDATE teacherimage SET img = '$imgContenet' WHERE userTeachers = '$userName'";
             
             if (!mysqli_query($conn,$sql)) {
-                header("Location: profile.php?errorimg=failedupload");
+                header("Location: profile-edit.php?errorimg=failedupload");
                 exit();               
             }
             
         } else {
-            header("Location: profile.php?img=wrongformat");
+            header("Location: profile-edit.php?img=wrongformat");
             exit();  
         }
           
       } elseif (!$update) {
-        header("Location: profile.php?error=sqlerror");
+        header("Location: profile-edit.php?error=sqlerror");
         exit();
       }
     }
@@ -75,17 +85,18 @@ if (isset($_SESSION['userName'])) {
                 <div class="card-content">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
             <div class="row">
-                <div class="col s3">
+                <div class="col s12 m3 center">
                      <p>Profile Picture</p>
+                     <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($details['img']); ?>" height="100" width="100" />
                 </div>
-                <div class="col s9">
+                <div class="col s12 m9">
                 <div class="file-field input-field">
                      <div class="btn">
-                           <span>File</span>
-                           <input type="file" name="img" accept="image/*">
+                           <i class="material-icons">insert_photo</i>
+                           <input type="file" name="img" accept=".png,.jpeg.gif|image/*.jpeg">
                      </div>
                      <div class="file-path-wrapper">
-                       <input class="file-path validate"  type="text">
+                       <input class="file-path validate" placeholder="Select image .jpg/jpeg/png" type="text">
                      </div>
                  </div>
                 </div>
