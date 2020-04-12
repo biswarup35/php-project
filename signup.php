@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col s12 m6 offset-m3 l6 offset-l3">
-            <div class="card grey lighten-3">
+            <div class="card white z-depth-0">
                 <div class="card-content">
                     <h6 class="center flow-text">Sign up</h6>
                     <form class="center" action="user/signup.php" method="post">

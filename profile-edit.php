@@ -46,27 +46,22 @@ if (isset($_SESSION['userName'])) {
         $update = mysqli_query($conn,$sql);
         header("Refresh: 0.1");
       if ($update) {
-        //   if image field left empty then skip update statement.
           $fileName = basename($_FILES['img']['name']);
           $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
-        //   file type allowed - in_array block needs to be removed
-        $type = array('jpg','png','jpeg','gif');
-        if (in_array($fileType,$type)) {
-            $image = $_FILES['img']['tmp_name'];
-            $imgContenet = addslashes(file_get_contents($image));
+        if (isset($fileName)) {
+            $type = array('jpg','png','jpeg','gif');
+            if (in_array($fileType,$type)) {
+                     $image = $_FILES['img']['tmp_name'];
+                     $imgContenet = addslashes(file_get_contents($image));
+                     $sql = "UPDATE teacherimage SET img = '$imgContenet' WHERE userTeachers = '$userName'";
 
-            $sql = "UPDATE teacherimage SET img = '$imgContenet' WHERE userTeachers = '$userName'";
-            
-            if (!mysqli_query($conn,$sql)) {
+                if (!mysqli_query($conn,$sql)) {
                 header("Location: profile-edit.php?errorimg=failedupload");
                 exit();               
+                 }  
             }
-            
-        } else {
-            header("Location: profile-edit.php?img=wrongformat");
-            exit();  
         }
-          
+
       } elseif (!$update) {
         header("Location: profile-edit.php?error=sqlerror");
         exit();
@@ -81,7 +76,7 @@ if (isset($_SESSION['userName'])) {
 <div class="container">
     <div class="row" id="profile-deteails">
         <div class="col s12" id="form-container">
-            <div class="card z-depth-0 grey lighten-3">
+            <div class="card z-depth-0 white">
                 <div class="card-content">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
             <div class="row">

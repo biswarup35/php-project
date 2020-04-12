@@ -70,54 +70,64 @@ if (isset($_SESSION['userName'])) {
 </div>
 </div>
 <div <?php echo $style2;?> class="container">
-<div class="col s12">
-  <div class="row">
-    <div class="col s12">
-      <div class="row center">
-      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($details['img']); ?>" alt="" height="100" width="100" class="circle responsive-img">
+<div class="row">
+  <div class="col s12 m6 offset-m3">
+  <ul class="collection with-header" >
+  <li class="collection-header avatar" >
+    <div class="row center">
+      <div class=" center col s3">
+      <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($details['img']); ?>" alt=""height="100" width="100" class="circle responsive-img">
       </div>
-      <div class="row center">
-        <h6>Welcome : <?php echo $details['userTeachers'];?></h6>
+      <div class="col s9">
+      <p class="flow-text"><?php echo $details['name'];?></p>
       </div>
     </div>
 
-  </div>
-  <div class="row">
-    <a class="btn blue darken-4 right" href="profile-edit.php">Edit Details</a>
- <button class="btn blue darken-4 left">views as public</button>
-  </div>
-  <div class="row center">
-    <div class="col s12 m3">
-     <i class="small  material-icons">perm_identity</i>
-      <p> <strong>Name :</strong> <?php echo $details['name'];?></p>
-    </div>
-    <div class="col s12 m3">
+  </li>
+  <li class="collection-item">
+    <div class="row">
+    <div class="col s2">
     <i class="small material-icons">location_on</i>
-    <p> <strong>Location :</strong> <?php echo $details['location'];?> </p>
     </div>
-     <div class="col s12 m3">
-     <i class="small material-icons">euro</i>
-    <p><strong>Fess :</strong> <?php echo $details['fees'];?></p>
+    <div class="col s10">
+    <?php echo $details['location'];?> - <?php echo $details['address'];?>
     </div>
-     <div class="col s12 m3">
-     <i class="small material-icons">phone_iphone</i>
-     <p><strong>Phone :</strong><a href="tel:<?php echo $details['contact'];?>"> <?php echo $details['contact'];?></a></p>
     </div>
-  </div>
-  <div class="row center">
-    <div class="col s12 m4">
-    <i class="small material-icons">map</i>
-     <p><strong>Address :</strong> <?php echo $details['address'];?></p>
+  </li>
+  <li class="collection-item">
+    <div class="row">
+    <div class="col s2">
+    <i class="small material-icons">euro</i>
     </div>
-     <div class="col s12 m4">
-       <i class="small material-icons">menu_book</i>
-      <p> <strong>subjects :</strong> <?php echo $details['subjects'];?></p>
+    <div class="col s10">
+    <?php echo $details['fees'];?>
     </div>
-      <div class="col s12 m4">
-      <i class="small material-icons">settings</i>
-      <p><strong>stream :</strong> <?php echo $details['stream'];?></p>
     </div>
+  </li>
+  <li class="collection-item">
+    <div class="row">
+    <div class="col s2">
+    <i class="small material-icons">menu_book</i>
+    </div>
+    <div class="col s10">
+    <?php echo $details['stream'];?> - <?php echo $details['subjects'];?>
+    </div>
+    </div>
+  </li>
+  <li class="collection-item">
+    <div class="row">
+    <div class="col s2">
+    <i class="small material-icons">phone_iphone</i>
+    </div>
+    <div class="col s10">
+    <a href="tel:<?php echo $details['contact'];?>"> <?php echo $details['contact'];?></a>
+    </div>
+    </div>
+  </li>
+</ul>
   </div>
 </div>
+
+
 </div>
 <?php include('component/footer.php') ?>

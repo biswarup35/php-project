@@ -23,44 +23,61 @@ if(!empty($setId)) {
 ?>
 <div class="container">
 <div class="row">
-<div class="col s12">
-<div class="card center z-depth-0 grey lighten-3">
-
+<div class="col s12 m6 offset-m3">
 <section id="1">
-    <div class="row">
-        <div class="col s12">
-        <i class="medium  material-icons">perm_identity</i>
-             <p> Name : <?php echo htmlspecialchars($teacher['name']); ?>  </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-        <i class="medium material-icons">map</i>
-             <p> Address : <?php echo htmlspecialchars($teacher['location']); ?>
-             <br/>
-             <p><?php echo htmlspecialchars($teacher['address']); ?></p>
-            </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m6">
-        <i class="medium material-icons">phone_iphone</i>
-            <p>Contact Number: +91 <?php echo htmlspecialchars($teacher['phoneNumber']); ?></p>
-        </div>
-        <div class="col s12 m6">
-        <i class="medium material-icons">euro</i>
-             <p> Fees : <?php echo htmlspecialchars($teacher['fees']); ?> / month </p>
-        </div>
-    </div>
-    <div class="row">
-            <div class="col s12">
-            <i class="medium material-icons">menu_book</i>
-                <p>Also teach: <?php echo htmlspecialchars($teacher['otherSubjects']); ?></p>
+    <ul class="collection with-header z-depth-0">
+        <li class="collection-header avatar">
+             <div class="row center">
+                 <div class="col s3">
+                     <i class="small material-icons">perm_identity</i>
+                 </div>
+                 <div class="col s9">
+                     <p class="flow-text"><?php echo htmlspecialchars($teacher['name']);?></p>
+                 </div>
+             </div>  
+        </li>
+        <li class="collection-item">
+            <div class="row">
+                <div class="col s2">
+                <i class="small material-icons">location_on</i>                    
+                </div>
+                <div class="col s10">
+                 <?php echo htmlspecialchars($teacher['location']);?> - <?php echo htmlspecialchars($teacher['address']); ?> 
+                </div>
             </div>
-        </div>
+        </li>
+        <li class="collection-item">
+          <div class="row">
+            <div class="col s2">
+               <i class="small material-icons">euro</i>
+            </div>
+            <div class="col s10">
+              <?php echo $teacher['fees'];?>
+            </div>
+          </div>
+         </li>
+         <li class="collection-item">
+          <div class="row">
+            <div class="col s2">
+            <i class="small material-icons">menu_book</i>
+            </div>
+            <div class="col s10">
+              <?php echo $teacher['subject'];?> - <?php echo htmlspecialchars($teacher['otherSubjects']); ?>
+            </div>
+          </div>
+         </li>
+         <li class="collection-item">
+          <div class="row">
+            <div class="col s2">
+            <i class="small material-icons">phone_iphone</i>
+            </div>
+            <div class="col s10">
+              <a href="tel:<?php echo $teacher['phoneNumber'];?>"><?php echo $teacher['phoneNumber'];?></a>
+            </div>
+          </div>
+         </li>
+    </ul>
 </section>
-
-</div>
 </div>
 </div>
 </div>

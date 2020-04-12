@@ -56,7 +56,10 @@
                 $image = $_FILES['img']['tmp_name'];
                 $imgContent = addslashes(file_get_contents($image));
                 $sql = "INSERT INTO teacherimage (userTeachers,img) VALUES ('$userName','$imgContent')";
-                mysqli_query($conn,$sql);
+                if (mysqli_query($conn,$sql)) {
+                    header('Location: home.php');
+                }
+                
 
             }
 

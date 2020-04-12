@@ -35,8 +35,6 @@ $setSubject = $_POST['subject'];
    }
 
 $form = new SearchValidation($setLocation,$setSubject);
-// SearchValidation::makeSql($_POST['location'],$_POST['subject']);
-// echo($form->makeSql($_POST['location'],$_POST['subject']));
 $sql = $form->makeSql($_POST['location'],$_POST['subject']);
 $result = mysqli_query($conn, $sql);
 $teachers = mysqli_fetch_all($result,MYSQLI_ASSOC);

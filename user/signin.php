@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
                     session_start();
                     $_SESSION['userID'] = $row['idTeachers'];
                     $_SESSION['userName'] = $row['userTeachers'];
-                    header("Location: /project/home.php?login=successful");
+                    header("Location: ../insert.php");
                     exit();
                 } else {
                     header("Location: ../login.php?error=worngpassword");

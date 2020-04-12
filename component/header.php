@@ -1,4 +1,6 @@
 <?php session_start();
+header("Cache-Control: no-cache, must-revalidate");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +14,10 @@
      <link rel="stylesheet" href="custom-css.css" rel="stylesheet">
     <title>PHP Project</title>
 </head>
-<body>
-    <nav class="nav-warper light-blue lighten-2">
+<body class="grey lighten-4">
+    <nav class="nav-warper light-blue lighten-2 z-depth-0">
         <div class="container">
-            <a href="home.php" class="brand-logo">Logo</a>
+            <a href="home.php" class="brand-logo">TeacherFinder</a>
             <a href="#" class="sidenav-trigger" data-target="mobile-links">
                 <i class="material-icons">menu</i>
             </a>
@@ -37,4 +39,11 @@
             <li><a href="home.php">Home</a></li>
             <li><a href="about.php">About Us</a></li>
             <li><a href="contact.php">Contact Us</a></li>
+            <?php
+                if (isset($_SESSION['userName'])) {
+                    echo '<li><a href="user/logout.php">log out</a></li>';
+                } else {
+                    echo '<li><a href="/project/login.php">log in</a></li>';
+                }
+                ?>
     </ul>
