@@ -8,21 +8,41 @@ $subject = mysqli_real_escape_string($conn, $_POST['subject']);
 $setLocation = $_POST['location'];
 $setSubject = $_POST['subject'];
 
-   if(isset($setLocation) || isset($setSubject)) {
-     // SELECT * FROM teacher WHERE subject = "Subject" AND location = "Location";
-     $sql = "SELECT * FROM teacher WHERE subject = '$subject' AND location = '$location' ";
-     $result = mysqli_query($conn, $sql);
-      if($result == true) {
-        // echo "go on";
-        $teachers = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_close($conn);
+   class SearchValidation {
+    public $location;
+    public $subject;
+    public $sql;
+
+    function __construct($location, $subject) {
+      $this->location = $location;
+      $this->subject = $subject;
+    }
+    public static function makeSql($location,$subject) {
+      if (empty($location) && empty($subject)) {
+        header('Location: index.php?error=empty');
+      } elseif(empty($location)) {
+       $sql = "SELECT * FROM teacher WHERE subject = '$subject'";
+      return $sql;
+      } elseif(empty($subject)) {
+        $sql = "SELECT * FROM teacher WHERE location = '$location'";
+      return $sql;
       } else {
-         echo $sql;
-         exit();
-        }
-   } else {
-     header('Location: index.php?error=emptyfiels');
+        $sql = "SELECT * FROM teacher WHERE subject = '$subject' AND location = '$location'";
+        return $sql;
+      }
+    }
+
    }
+
+$form = new SearchValidation($setLocation,$setSubject);
+// SearchValidation::makeSql($_POST['location'],$_POST['subject']);
+// echo($form->makeSql($_POST['location'],$_POST['subject']));
+$sql = $form->makeSql($_POST['location'],$_POST['subject']);
+$result = mysqli_query($conn, $sql);
+$teachers = mysqli_fetch_all($result,MYSQLI_ASSOC);
+
+
+
 ?>
 <div class="container">
 <h4 class="flow-text">Result for <?php echo htmlspecialchars($location);?> and <?php echo htmlspecialchars($subject);?>:</h4>

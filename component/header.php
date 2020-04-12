@@ -1,4 +1,5 @@
-<?php session_start();?>
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +9,7 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-     <link rel="stylesheet" href="custom-css.css">
-
-     <!-- <script src="custom.js"></script> -->
-
-     <link rel="stylesheet" href="custom-css.css">
+     <link rel="stylesheet" href="custom-css.css" rel="stylesheet">
     <title>PHP Project</title>
 </head>
 <body>
@@ -24,13 +21,13 @@
             </a>
             <ul class="right  hide-on-med-and-down">
                 <li><a class="btn blue darken-4" href="home.php">Home</a></li>
-                <li><a class="btn blue darken-4" href="#">About Us</a></li>
-                <li><a class="btn blue darken-4" href="#">Contact Us</a></li>
+                <li><a class="btn blue darken-4" href="about.php">About Us</a></li>
+                <li><a class="btn blue darken-4" href="contact.php">Contact Us</a></li>
                 <?php
                 if (isset($_SESSION['userName'])) {
                     echo '<li><a class="btn blue darken-4" href="user/logout.php">log out</a></li>';
                 } else {
-                    echo '<li><a class="btn blue darken-4" href="/project/user/signin.php">log in</a></li>';
+                    echo '<li><a class="btn blue darken-4" href="/project/login.php">log in</a></li>';
                 }
                 ?>
             </ul>
@@ -38,6 +35,6 @@
     </nav>
     <ul class="sidenav" id="mobile-links">
             <li><a href="home.php">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact Us</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="contact.php">Contact Us</a></li>
     </ul>
