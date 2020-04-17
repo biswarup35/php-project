@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
                     $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
                     mysqli_stmt_bind_param($stmt, "sss",$userName,$email,$hashedPassword);
                     mysqli_stmt_execute($stmt);
-                    header("Location: ../signup.php?signup=success");
+                    header("Location: ../insert.php");
                     exit();
 
                 }

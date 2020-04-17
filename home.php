@@ -7,6 +7,13 @@ if (isset($_SESSION['userName'])) {
   $style2 = "style='display:block;'";
   $userName = $_SESSION['userName'];
 
+  $sql = "SELECT COUNT(userTeachers) as teachers FROM teacherdetails WHERE userTeachers = '$userName'";
+  $result = mysqli_query($conn,$sql);
+  $info = mysqli_fetch_assoc($result);
+  if($info['teachers'] == 0) {
+    header('Location: insert.php');
+  }
+
   $sql = "SELECT teacherdetails.id,teacherdetails.name,teacherdetails.userTeachers,teacherdetails.location,
   teacherdetails.address,teacherdetails.contact,teacherdetails.stream,
   teacherdetails.subjects,teacherdetails.fees,teacherimage.img FROM teacherdetails
@@ -19,10 +26,7 @@ if (isset($_SESSION['userName'])) {
   $style = "style='display:block;'";
   $style2 = "style='display:none;'"; 
 }
-
-
 ?>
-
 <div <?php echo $style?> class="container center">
     <div class="hero">
     <img class="responsive-img" src="background.png">
@@ -127,7 +131,5 @@ if (isset($_SESSION['userName'])) {
 </ul>
   </div>
 </div>
-
-
 </div>
 <?php include('component/footer.php') ?>
