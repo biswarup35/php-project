@@ -10,8 +10,13 @@ include($path);
 if (isset($_POST['submit'])) {
   include('../config.php');
 
-echo "Clicked";
-echo $_POST['phone'];
+  $str = explode(",",$_POST['name']);
+  $str2 = preg_replace('/\s*,\s*/', ',', implode(",",$str));
+
+$sql = "INSERT INTO test(subjects) VALUES ('$str2')";
+mysqli_query($conn,$sql);
+
+
 
 
 
@@ -20,16 +25,15 @@ echo $_POST['phone'];
 }
 ?>
 
+<div class="container">
+<div class="col s12 m6 offset-m3">
 <form action="test-page.php" method="post">
-<input type="text" name="phone" max="5" autocomplete="on" list="phones">
-<datalist id="phones">
-<option value="Samsung">
-<option value="Xiomi">
-<option value="Apple">
-<option value="vivo">
-<option value="oppo">
-</datalist>
+  <input type="text" name="name" id="name">
+  <label for="name">Enter Name</label>
+
 <button type="submit" name="submit">click</button>
 </form>
+</div>
+</div>
 
 <?php require('../component/footer.php');?>

@@ -77,6 +77,10 @@ if (isset($_SESSION['userName'])) {
 <div class="row">
   <div class="col s12 m6 offset-m3">
   <ul class="collection with-header" >
+    <li class="collection-item blue darken-4">
+      <h6 class="center white-text"><b>Profile</b></h6>
+      <a class="btn-floating tooltipped light-blue lighten-2 right" data-position="top" data-tooltip="edit profile" href="profile-edit.php"><i class="material-icons">create</i></a>
+    </li>
   <li class="collection-header avatar" >
     <div class="row center">
       <div class=" center col s3">
@@ -114,7 +118,12 @@ if (isset($_SESSION['userName'])) {
     <i class="small material-icons">menu_book</i>
     </div>
     <div class="col s10">
-    <?php echo $details['stream'];?> - <?php echo $details['subjects'];?>
+    <?php echo $details['stream'];?> :
+    <ul>
+      <?php foreach(explode(",",$details['subjects']) as $subs) {?>
+        <li><?php echo $subs; ?></li>
+        <?php }?>
+    </ul>
     </div>
     </div>
   </li>

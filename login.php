@@ -5,6 +5,17 @@
             <div class="card white z-depth-0">
                 <div class="card-content">
                     <h6 class="center flow-text">Login</h6>
+                    <div class="col s12">
+                    <?php
+                    if (isset($_GET['error'])) {
+                        $str = $_GET['error'];
+                        if ($str == "emptyfield") {
+                            $response = "Please fill all the fiels";
+                            echo '<p class="red-text center">'.$response.'</p>';
+                        }
+                    }
+                    ?>
+                    </div>
                     <form class="center" action="user/signin.php" method="post">
                         <div class="input-field s12">
                             <label for="email">Email or Username<span class="red-text">*</span> </label>

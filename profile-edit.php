@@ -28,7 +28,9 @@ if (isset($_SESSION['userName'])) {
         $address = $_POST['address'];
         $contact = $_POST['contact'];
         $fees = $_POST['fees'];
-        $subjects = $_POST['subjects'];
+        // $subjects = $_POST['subjects'];
+        $strSubs = explode(",",$_POST['subjects']);
+        $subjects = preg_replace('/\s*,\s*/', ',', implode(",",$strSubs));
         $location = $_POST['location'];
         $stream = $_POST['subject-stream'];
 

@@ -25,13 +25,15 @@
 
     if (isset($_POST['submit'])) {
 
-        $name = $_POST['name'];
-        $addresss = $_POST['address'];
-        $contact = $_POST['contact'];
-        $fees = $_POST['fees'];
-        $subjects = $_POST['subjects'];
-        $location = $_POST['location'];
-        $subjectStream = $_POST['subject-stream'];
+        $name = trim($_POST['name']);
+        $addresss = trim($_POST['address']);
+        $contact = trim($_POST['contact']);
+        $fees = trim($_POST['fees']);
+        // $subjects = $_POST['subjects'];
+        $strSubs = explode(",",$_POST['subjects']);
+        $subjects = preg_replace('/\s*,\s*/', ',', implode(",",$strSubs));
+        $location = trim($_POST['location']);
+        $subjectStream = trim($_POST['subject-stream']);
         $img = $_FILES['img']['name'];
         $imgSize = @getimagesize($_FILES['img']['tmp_name']);
         $width = $imgSize[0]; $height = $imgSize[1];

@@ -2,10 +2,10 @@
 require('../config.php');
 
 if (isset($_POST['submit'])) {
-    $userName = mysqli_real_escape_string($conn,$_POST['userName']);
-    $email = mysqli_real_escape_string($conn,$_POST['email']);
-    $password = $_POST['password'];
-    $passwordRep = $_POST['password-rep'];
+    $userName = mysqli_real_escape_string($conn,strtolower(str_replace(" ","",trim($_POST['userName']))));
+    $email = mysqli_real_escape_string($conn,trim($_POST['email']));
+    $password = trim($_POST['password']);
+    $passwordRep = trim($_POST['password-rep']);
 
     if (empty($userName) || empty($email) || empty($password) || empty($passwordRep)) {
         header("Location: ../signup.php?error=emptyfield");
@@ -48,6 +48,8 @@ if (isset($_POST['submit'])) {
                     $hashedPassword = password_hash($password,PASSWORD_DEFAULT);
                     mysqli_stmt_bind_param($stmt, "sss",$userName,$email,$hashedPassword);
                     mysqli_stmt_execute($stmt);
+                    session_start();
+                    $_SESSION['userName'] = $userName;
                     header("Location: ../insert.php");
                     exit();
 

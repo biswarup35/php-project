@@ -1,8 +1,8 @@
 <?php
 require('../config.php');
 if (isset($_POST['submit'])) {
-    $userName = $_POST['email'];
-    $password = $_POST['password'];
+    $userName = mysqli_real_escape_string($conn,strtolower(str_replace(" ","",trim($_POST['email']))));
+    $password = trim($_POST['password']);
 
     if (empty($userName) || empty($password)) {
         header("Location: ../login.php?error=emptyfield");
